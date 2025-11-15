@@ -1,6 +1,7 @@
 use directories::ProjectDirs;
 use serde::{Serialize, Deserialize};
 use std::error::Error;
+use std::fmt;
 use std::fs::{create_dir_all, File};
 use std::io::{BufReader, Write};
 use std::path::PathBuf;
@@ -11,6 +12,14 @@ pub struct Settings {
     relief_seconds: u32,
     break_minutes: u32,
     work_relief_cycles: u32,
+}
+
+impl fmt::Display for Settings {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Work for {} minutes, Rest for {} seconds, for {} cycles, then break for {} minutes", 
+            self.work_minutes, self.relief_seconds, self.work_relief_cycles, self.break_minutes
+        )
+    }
 }
 
 pub struct ConfigManager{
