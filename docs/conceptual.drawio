@@ -1,86 +1,95 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
   <diagram name="Page-1" id="qXkk9ACdN3Ke32LPYLlF">
-    <mxGraphModel dx="690" dy="593" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="972" dy="671" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-1" value="CLI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-1" value="App" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="290" y="252" width="110" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-2" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" edge="1" parent="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="210" y="282" as="sourcePoint" />
-            <mxPoint x="290" y="282" as="targetPoint" />
-          </mxGeometry>
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-4" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="58" y="246" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-4" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
-          <mxGeometry x="170" y="242" width="30" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-7" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" edge="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-7" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="400" y="281.5" as="sourcePoint" />
             <mxPoint x="480" y="281.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-8" value="Start/Stop" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-8" value="Start/Stop" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="400" y="252" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-9" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="MiAA-tm4z80FA9FYBMdS-1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-9" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="MiAA-tm4z80FA9FYBMdS-1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="290" y="372" as="sourcePoint" />
             <mxPoint x="345" y="372" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-12" value="Time/break Config" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-12" value="Time/break Config" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="230" y="332" width="120" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-13" value="Config Manager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-13" value="Config Manager" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="302.5" y="372" width="85" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-14" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" edge="1" parent="1" target="MiAA-tm4z80FA9FYBMdS-15">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-14" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" parent="1" target="MiAA-tm4z80FA9FYBMdS-15" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="302.5" y="401.5" as="sourcePoint" />
             <mxPoint x="232.5" y="401.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-15" value="Persistent File" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-15" value="Persistent File" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="1" vertex="1">
           <mxGeometry x="170" y="372" width="60" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-16" value="Save" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-16" value="Save" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="245" y="370" width="50" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-17" value="Load" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-17" value="Load" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="240" y="432" width="50" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-18" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" edge="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-18" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;" parent="1" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="230" y="422" as="sourcePoint" />
             <mxPoint x="300" y="422" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-19" value="Timer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-19" value="Timer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="480" y="262" width="150" height="210" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-21" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;entryX=-0.007;entryY=0.667;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="MiAA-tm4z80FA9FYBMdS-19">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-21" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;exitX=0.888;exitY=0.033;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1" source="MiAA-tm4z80FA9FYBMdS-13">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="387.5" y="401.5" as="sourcePoint" />
-            <mxPoint x="467.5" y="401.5" as="targetPoint" />
+            <mxPoint x="478" y="320" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="378" y="320" />
+            </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-22" value="Load" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="395" y="370" width="50" height="30" as="geometry" />
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-22" value="Load" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="380" y="330" width="50" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-26" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="MiAA-tm4z80FA9FYBMdS-19">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-26" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=3;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="MiAA-tm4z80FA9FYBMdS-19" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="555" y="262" as="sourcePoint" />
-            <mxPoint x="210" y="200" as="targetPoint" />
+            <mxPoint x="100" y="200" as="targetPoint" />
             <Array as="points">
               <mxPoint x="555" y="200" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="MiAA-tm4z80FA9FYBMdS-27" value="Play Audio/Notif" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="MiAA-tm4z80FA9FYBMdS-27" value="Play Audio/Notif" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="295" y="158" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="d69SOWXiXu1UF32ZpaXP-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" edge="1" parent="1" source="d69SOWXiXu1UF32ZpaXP-1" target="MiAA-tm4z80FA9FYBMdS-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d69SOWXiXu1UF32ZpaXP-1" value="CLI" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="135" y="252" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="d69SOWXiXu1UF32ZpaXP-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="282" as="sourcePoint" />
+            <mxPoint x="135" y="282" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
