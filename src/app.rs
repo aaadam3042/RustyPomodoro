@@ -22,8 +22,9 @@ impl PomodoroApp {
         self.config.get_settings()
     }
 
-    pub fn save_config() {
-        
+    pub fn save_config(&mut self, new_settings: Settings) {
+        *self.config.get_mut_settings() = new_settings;
+        self.config.save();
     }
 
     pub fn start(&self) {

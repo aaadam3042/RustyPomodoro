@@ -35,23 +35,33 @@ pub fn query_user_option(prompt: &str, options: &[&str]) -> u8 {
 }
 
 fn get_input_option(num_options: u8) -> Result<u8, Box<dyn Error>> {
-    println!("Select an option: ");
+    println!("\nSelect an option: ");
     let mut input = String::new();
     io::stdin().read_line(&mut input)?;
-    let option = input.parse::<u8>()?;
+    let option = input.trim().parse::<u8>()?;
     (1..=num_options)
         .contains(&option)
         .then_some(option)
-        .ok_or_else(|| From::from("Invalid option selected"))
-    
+        .ok_or_else(|| From::from("Invalid option selected")) 
 }
 
-pub fn get_input(s1: String) -> String {
+pub fn get_input(s1: &str) -> String {
     print!("{}", s1);
     io::stdout().flush().unwrap();
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();
     input.trim().to_string()
+}
+
+pub fn get_posint_input(s1: &str) -> u32 {
+    loop {  
+        let rs = get_input(s1).parse::<u32>();
+        match rs {
+            Ok(v) => if v > 0 {return v} ,
+            Err(_) => ()
+        }
+        println!("Please enter a valid integer > 0!")
+    }
 }
 
 pub fn clear_terminal() {

@@ -9,39 +9,62 @@ use crate::utils;
 use crate::PomodoroApp;
 use crate::queryOptions;
 
-pub fn run(app: &PomodoroApp) {
-    let settings = app.get_settings();
+pub fn run(app: &mut PomodoroApp) {
+    loop {
+        let settings = app.get_settings();
 
-    utils::clear_terminal();
+        utils::clear_terminal();
 
-    println!("POMODORO TIMER\n");
-    println!("Welcome to this pomodoro timer, modified for eye strain management.");
-    println!("Your current settings are as such:");
-    println!("{settings}");
-    let option = queryOptions!("Options:","Start Timer", "Edit Settings");
+        println!("POMODORO TIMER\n");
+        println!("Welcome to this pomodoro timer, modified for eye strain management.\n");
+        println!("Your current settings are as such:");
+        println!("{settings}\n");
+        let option = queryOptions!("Options:","Start Timer", "Edit Settings", "Exit 🚪");
 
-    // TODO: I think while query options happens here, this logic should happen in app as something like run_option(), which essentially handles state
-    match option {
-        1 => {
-            show_start_timer();
-        }
-        2 => {
-            show_edit_settings();
-        }
-        _ => {
-            unreachable!("User was somehow able to chose an invalid option");
+        match option {
+            1 => cli_start_timer(),
+            2 => cli_edit_settings(app),
+            3 => break,
+            _ => unreachable!("User was somehow able to chose an invalid option"),
+        };
+    }
+}
+
+fn cli_start_timer() {
+    // When we start timer:
+    //      Display UI
+    //      Start app timer     <APP
+    //      Update UI       <Listener?
+}
+
+fn cli_edit_settings(app: &mut PomodoroApp) {
+    // When we edit settings:
+    //      Display UI
+    //      Wait for user input -> multiple menus
+    //      call app to save        <APP
+    //      Go back to main menu
+    let mut new_settings = app.get_settings().clone();
+
+    loop {
+        utils::clear_terminal();
+        println!("CONFIGURE SETTINGS\n");
+
+        println!("Your current settings are as such:");
+        println!("{new_settings}\n");
+
+        let option = queryOptions!("Options:", "Work time", "Relief time", "Break time", "no. Cycles", "Save and Exit 💾", "Back 🚪");
+        match option {
+            1 => new_settings.work_minutes = utils::get_posint_input("\nSet work timer in minutes: "),
+            2 => new_settings.relief_seconds = utils::get_posint_input("\nSet relief timer in seconds: "),
+            3 => new_settings.break_minutes = utils::get_posint_input("\nSet break timer in minutes: "),
+            4 => new_settings.work_relief_cycles = utils::get_posint_input("\nSet number of cycles (no. work-relief sessions before break): "),
+            5 => {
+                // Save and Exit option
+                app.save_config(new_settings);
+                break;
+            },
+            6 => break,
+            _ => unreachable!("User was somehow able to chose an invalid option"),
         }
     }
-
-    // TODO: We want enums for each state, map numbers to return each state, then run a state machine -> this goes in app??
-    // How far do we go into app? Should there be any match here at all. Should we occasionally query app for the current state to display to
-    // CLI. Or do we do like above and then somehow integrate app only for timer, and saving and loading??
-}
-
-fn show_start_timer() {
-
-}
-
-fn show_edit_settings() {
-
 }

@@ -17,7 +17,7 @@ fn main() -> Result<(), String> {
     } else {
         let mut app = PomodoroApp::new();
         app.init();
-        cli::run(&app);
+        cli::run(&mut app);
     }
     Ok(())
 }

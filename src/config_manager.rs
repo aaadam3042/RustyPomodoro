@@ -6,12 +6,12 @@ use std::fs::{create_dir_all, File};
 use std::io::{BufReader, Write};
 use std::path::PathBuf;
 
-#[derive(Default, Serialize, Deserialize)]
+#[derive(Default, Serialize, Deserialize, Clone)]
 pub struct Settings {
-    work_minutes: u32,
-    relief_seconds: u32,
-    break_minutes: u32,
-    work_relief_cycles: u32,
+    pub work_minutes: u32,
+    pub relief_seconds: u32,
+    pub break_minutes: u32,
+    pub work_relief_cycles: u32,
 }
 
 impl fmt::Display for Settings {
@@ -50,6 +50,14 @@ impl ConfigManager{
 
     pub fn get_settings(&self) -> &Settings {
         &self.settings
+    }
+
+    pub fn get_mut_settings(&mut self) -> &mut Settings {
+        &mut self.settings
+    }
+
+    pub fn save(&self) {
+        self.save_settings_to_json();
     }
 
     fn get_config_file_path() -> Result<PathBuf, Box<dyn Error>> {
