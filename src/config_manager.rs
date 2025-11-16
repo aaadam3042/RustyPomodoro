@@ -8,16 +8,16 @@ use std::path::PathBuf;
 
 #[derive(Default, Serialize, Deserialize, Clone)]
 pub struct Settings {
-    pub work_minutes: u32,
+    pub work_seconds: u32,
     pub relief_seconds: u32,
-    pub break_minutes: u32,
+    pub break_seconds: u32,
     pub work_relief_cycles: u32,
 }
 
 impl fmt::Display for Settings {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(f, "Work for {} minutes, Rest for {} seconds, for {} cycles, then break for {} minutes", 
-            self.work_minutes, self.relief_seconds, self.work_relief_cycles, self.break_minutes
+            self.work_seconds/60, self.relief_seconds, self.work_relief_cycles, self.break_seconds/60
         )
     }
 }
@@ -42,7 +42,7 @@ impl ConfigManager{
             }
             Err(_) => {
                 // Create default settings. Also attempt to save the settings to a json file. If save fails nothing changes.
-                self.settings = Settings {work_minutes: 20, relief_seconds: 20, break_minutes: 5, work_relief_cycles: 2};
+                self.settings = Settings {work_seconds: 20*60, relief_seconds: 20, break_seconds: 5*60, work_relief_cycles: 2};
                 self.save_settings_to_json();
             }
         }

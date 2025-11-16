@@ -22,7 +22,7 @@ pub fn run(app: &mut PomodoroApp) {
         let option = queryOptions!("Options:","Start Timer", "Edit Settings", "Exit 🚪");
 
         match option {
-            1 => cli_start_timer(),
+            1 => cli_run_timer(),
             2 => cli_edit_settings(app),
             3 => break,
             _ => unreachable!("User was somehow able to chose an invalid option"),
@@ -30,11 +30,18 @@ pub fn run(app: &mut PomodoroApp) {
     }
 }
 
-fn cli_start_timer() {
+fn cli_run_timer() {
     // When we start timer:
     //      Display UI
     //      Start app timer     <APP
     //      Update UI       <Listener?
+    loop {
+        println!("TIMER\n");
+
+        // println!("Session: {} \n");
+
+        println!("Time Remaining:")
+    }
 }
 
 fn cli_edit_settings(app: &mut PomodoroApp) {
@@ -54,9 +61,9 @@ fn cli_edit_settings(app: &mut PomodoroApp) {
 
         let option = queryOptions!("Options:", "Work time", "Relief time", "Break time", "no. Cycles", "Save and Exit 💾", "Back 🚪");
         match option {
-            1 => new_settings.work_minutes = utils::get_posint_input("\nSet work timer in minutes:"),
+            1 => new_settings.work_seconds = utils::get_posint_input("\nSet work timer in minutes:") * 60,
             2 => new_settings.relief_seconds = utils::get_posint_input("\nSet relief timer in seconds:"),
-            3 => new_settings.break_minutes = utils::get_posint_input("\nSet break timer in minutes:"),
+            3 => new_settings.break_seconds = utils::get_posint_input("\nSet break timer in minutes:") * 60,
             4 => new_settings.work_relief_cycles = utils::get_posint_input("\nSet number of cycles (no. work-relief sessions before break):"),
             5 => {
                 // Save and Exit option
