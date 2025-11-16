@@ -27,7 +27,8 @@ impl PomodoroApp {
         self.config.save();
     }
 
-    pub fn start(&self) {
+    pub fn start_timer(&mut self) {
+        self.timer.init(self.config.get_settings().clone());
         self.timer.start();
     } 
 }
