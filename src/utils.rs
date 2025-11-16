@@ -35,7 +35,8 @@ pub fn query_user_option(prompt: &str, options: &[&str]) -> u8 {
 }
 
 fn get_input_option(num_options: u8) -> Result<u8, Box<dyn Error>> {
-    println!("\nSelect an option: ");
+    print!("\nSelect an option: \n> ");
+    io::stdout().flush().unwrap();
     let mut input = String::new();
     io::stdin().read_line(&mut input)?;
     let option = input.trim().parse::<u8>()?;
@@ -46,7 +47,7 @@ fn get_input_option(num_options: u8) -> Result<u8, Box<dyn Error>> {
 }
 
 pub fn get_input(s1: &str) -> String {
-    print!("{}", s1);
+    print!("{}\n> ", s1);
     io::stdout().flush().unwrap();
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();

@@ -54,10 +54,10 @@ fn cli_edit_settings(app: &mut PomodoroApp) {
 
         let option = queryOptions!("Options:", "Work time", "Relief time", "Break time", "no. Cycles", "Save and Exit 💾", "Back 🚪");
         match option {
-            1 => new_settings.work_minutes = utils::get_posint_input("\nSet work timer in minutes: "),
-            2 => new_settings.relief_seconds = utils::get_posint_input("\nSet relief timer in seconds: "),
-            3 => new_settings.break_minutes = utils::get_posint_input("\nSet break timer in minutes: "),
-            4 => new_settings.work_relief_cycles = utils::get_posint_input("\nSet number of cycles (no. work-relief sessions before break): "),
+            1 => new_settings.work_minutes = utils::get_posint_input("\nSet work timer in minutes:"),
+            2 => new_settings.relief_seconds = utils::get_posint_input("\nSet relief timer in seconds:"),
+            3 => new_settings.break_minutes = utils::get_posint_input("\nSet break timer in minutes:"),
+            4 => new_settings.work_relief_cycles = utils::get_posint_input("\nSet number of cycles (no. work-relief sessions before break):"),
             5 => {
                 // Save and Exit option
                 app.save_config(new_settings);
