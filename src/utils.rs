@@ -1,5 +1,7 @@
 use std::error::Error;
-use std::io::{self, Write};
+use std::io::{self, BufRead, Read, Write};
+use std::sync::mpsc::{self, Receiver};
+use std::thread;
 
 #[macro_export]
 macro_rules! queryOptions {
@@ -68,4 +70,35 @@ pub fn get_posint_input(s1: &str) -> u32 {
 pub fn clear_terminal() {
     print!("{}[2J", 27 as char); 
     io::stdout().flush().unwrap();          
+}
+
+pub fn start_input_thread() -> Receiver<u8> {
+    let (tx, rx) = mpsc::channel::<u8>();
+
+    thread::spawn(move || {
+        let stdin = io::stdin();
+        let mut handle = stdin.lock();
+        let mut buf = [0u8; 1];
+
+        loop {
+            match handle.read(&mut buf) {
+                Ok(0) => {
+                    // No bytes read to buffer
+                    break;
+                },
+                Ok(_) => {
+                    // Succesful read into buffer
+                    let byte = buf[0];
+                    if tx.send(byte).is_err() {
+                        break;
+                    }
+                },
+                Err(_) => {
+                    break;
+                }
+            }
+        }
+    });
+
+    rx
 }

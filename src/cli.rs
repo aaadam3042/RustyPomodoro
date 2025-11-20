@@ -1,3 +1,5 @@
+use crate::timer::TimerEvent;
+use crate::timer::TimerSession;
 /*
 CLI will be called from main.rs
 It will handle all the user interace (text prompts) allowing the user to:
@@ -8,6 +10,9 @@ It does not actually perform these actions, rather passes the instruction to the
 use crate::utils;
 use crate::PomodoroApp;
 use crate::queryOptions;
+use crate::timer::TimerState;
+use crate::utils::clear_terminal;
+use crate::utils::start_input_thread;
 
 pub fn run(app: &mut PomodoroApp) {
     loop {
@@ -22,7 +27,7 @@ pub fn run(app: &mut PomodoroApp) {
         let option = queryOptions!("Options:","Start Timer", "Edit Settings", "Exit 🚪");
 
         match option {
-            1 => cli_run_timer(),
+            1 => cli_run_timer(app),
             2 => cli_edit_settings(app),
             3 => break,
             _ => unreachable!("User was somehow able to chose an invalid option"),
@@ -30,17 +35,79 @@ pub fn run(app: &mut PomodoroApp) {
     }
 }
 
-fn cli_run_timer() {
+fn cli_run_timer(app: &mut PomodoroApp) {
     // When we start timer:
+    //      Start app timer     
+    //      Get timer info
     //      Display UI
-    //      Start app timer     <APP
-    //      Update UI       <Listener?
+
+    app.start_timer();
+    let mut current_state = TimerState::Idle;
+    let input_receiver = start_input_thread();
     loop {
+        if let Some(event) = app.poll_timer_event() {
+            current_state = event.state;
+            if matches!(event.state, TimerState::Idle) {
+                break;
+            }
+
+            display_timer(
+                event.session, 
+                event.state, 
+                event.remaining, 
+                event.cycles_complete
+            );
+
+        } else if app.is_timer_disconnected() {
+            break;
+        }
+
+        // Handle input
+        if let Ok(input) = input_receiver.try_recv() {
+            handle_input(app, current_state, input);
+        }
+
+        std::thread::sleep(std::time::Duration::from_millis(30));
+    }
+}
+
+fn display_timer(session: TimerSession, state: TimerState, time_remaining: u32, cycles: u32) {
+        clear_terminal();
         println!("TIMER\n");
 
-        // println!("Session: {} \n");
+        println!("[{}]", state.as_str());
+        println!("Session: {} \n", session.as_str());
 
-        println!("Time Remaining:")
+        println!("Cycle {cycles}");
+        println!("Time Remaining:");
+        println!("{}",get_display_time(time_remaining));
+
+        // Display the correct commands
+        println!("{}", get_display_commands(state));
+}
+
+fn get_display_time(time_seconds: u32) -> String {
+    // Rust int division always truncates
+    format!("{}:{}", (time_seconds/60), time_seconds%60)
+}
+
+fn get_display_commands(state: TimerState) -> &'static str {
+    match state {
+        TimerState::CountDown => "Press 1 to Pause",
+        TimerState::Paused => "Press 1 to Resume, Press 2 to Exit",
+        TimerState::Waiting => "Press 1 to advance session, Press 2 to Exit",
+        TimerState::Idle => "Returning to Main Menu"
+    }
+}
+
+fn handle_input(app: &PomodoroApp, state: TimerState, input: u8) {
+    match (state, input) {
+        (TimerState::CountDown, 1) => app.pause_timer(),
+        (TimerState::Paused, 1) => app.resume_timer(),
+        (TimerState::Paused, 2) => app.stop_timer(),
+        (TimerState::Waiting, 1) => app.advance_timer(),
+        (TimerState::Waiting, 2) => app.stop_timer(),
+        _ => {/* Do Nothing if unrecognised command */}
     }
 }
 

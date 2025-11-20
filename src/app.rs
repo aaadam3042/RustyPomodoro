@@ -1,16 +1,18 @@
+use std::sync::mpsc::TryRecvError;
+
 use crate::config_manager::{ConfigManager, Settings};
-use crate::timer::Timer;
+use crate::timer::{Timer, TimerCommand, TimerEvent, TimerHandle};
 
 pub struct PomodoroApp {
     config: ConfigManager,
-    timer: Timer,
+    timer_handle: Option<TimerHandle>,
 }
 
 impl PomodoroApp {
     pub fn new() -> Self {
         Self {
             config: ConfigManager::new(),
-            timer: Timer::new(),
+            timer_handle: None,
         }
     }
 
@@ -28,7 +30,50 @@ impl PomodoroApp {
     }
 
     pub fn start_timer(&mut self) {
-        self.timer.init(self.config.get_settings().clone());
-        self.timer.start();
+        self.timer_handle = Some(Timer::spawn(self.config.get_settings().clone()));
     } 
+
+    pub fn pause_timer(&self) {
+        if let Some(handle) = &self.timer_handle {
+            let _ = handle.cmd_tx.send(TimerCommand::Pause);
+        }
+    }
+
+    pub fn resume_timer(&self) {
+        if let Some(handle) = &self.timer_handle {
+            let _ = handle.cmd_tx.send(TimerCommand::Resume);
+        }
+    }
+
+    pub fn stop_timer(&self) {
+        if let Some(handle) = &self.timer_handle {
+            let _ = handle.cmd_tx.send(TimerCommand::Stop);
+        }
+    }
+
+    pub fn advance_timer(&self) {
+        if let Some(handle) = &self.timer_handle {
+            let _ = handle.cmd_tx.send(TimerCommand::Next);
+        }
+    }
+
+    pub fn poll_timer_event(&mut self) -> Option<TimerEvent> {
+        if let Some(handle) = &self.timer_handle {
+            match handle.evt_rx.try_recv() {
+                Ok(evt) => Some(evt),
+                Err(TryRecvError::Empty) => None,
+                Err(TryRecvError::Disconnected) => {
+                    // If we are done with the timer
+                    self.timer_handle = None;
+                    None
+                }
+            }
+        } else {
+            None
+        }
+    }
+
+    pub fn is_timer_disconnected(&self) -> bool {
+        if let None = self.timer_handle {true} else {false}
+    }
 }
