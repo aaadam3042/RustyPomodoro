@@ -1,7 +1,7 @@
 use std::error::Error;
-use std::io::{self, BufRead, Read, Write};
-use std::sync::mpsc::{self, Receiver};
-use std::thread;
+use std::io::{self, Write};
+use std::time::Duration;
+use crossterm::event::{poll, read, Event, KeyCode, KeyEvent};
 
 #[macro_export]
 macro_rules! queryOptions {
@@ -40,7 +40,7 @@ fn get_input_option(num_options: u8) -> Result<u8, Box<dyn Error>> {
     print!("\nSelect an option: \n> ");
     io::stdout().flush().unwrap();
     let mut input = String::new();
-    io::stdin().read_line(&mut input)?;
+    io::stdin().read_line(&mut input)?; 
     let option = input.trim().parse::<u8>()?;
     (1..=num_options)
         .contains(&option)
@@ -72,33 +72,11 @@ pub fn clear_terminal() {
     io::stdout().flush().unwrap();          
 }
 
-pub fn start_input_thread() -> Receiver<u8> {
-    let (tx, rx) = mpsc::channel::<u8>();
-
-    thread::spawn(move || {
-        let stdin = io::stdin();
-        let mut handle = stdin.lock();
-        let mut buf = [0u8; 1];
-
-        loop {
-            match handle.read(&mut buf) {
-                Ok(0) => {
-                    // No bytes read to buffer
-                    break;
-                },
-                Ok(_) => {
-                    // Succesful read into buffer
-                    let byte = buf[0];
-                    if tx.send(byte).is_err() {
-                        break;
-                    }
-                },
-                Err(_) => {
-                    break;
-                }
-            }
-        }
-    });
-
-    rx
+pub fn poll_user_input() -> Option<KeyCode> {
+    if poll(Duration::from_millis(0)).ok()? {
+        if let Event::Key(KeyEvent {code, .. }) =  read().ok()? {
+            return Some(code);
+        } 
+    } 
+    None
 }

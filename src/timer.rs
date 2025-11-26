@@ -102,8 +102,7 @@ impl Timer {
         if let TimerState::Waiting = self.current_state {
             match self.current_session {
                 TimerSession::Working => {
-                    self.cycles_complete += 1;
-                    if self.cycles_complete == self.timer_settings.work_relief_cycles {
+                    if self.cycles_complete == self.timer_settings.work_relief_cycles-1 {
                         self.current_session = TimerSession::Break;
                         self.time_remaining = self.timer_settings.break_seconds;
                     } else {
@@ -112,6 +111,8 @@ impl Timer {
                     }
                 }
                 TimerSession::Break | TimerSession::Resting => {
+                    if matches!(self.current_session, TimerSession::Break) {self.cycles_complete = 0}
+                    else {self.cycles_complete += 1}
                     self.current_session = TimerSession::Working;
                     self.time_remaining = self.timer_settings.work_seconds;
                 }
